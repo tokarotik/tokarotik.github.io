@@ -1,0 +1,43 @@
+@import url("/beauty/animations.css");
+
+:root {
+  --emergence-delay: 15s;
+  --right-shift: 3px;
+}
+
+.typewriter {
+  
+  animation: emergence 1s both var(--emergence-delay);
+}
+
+.typewriter > p {
+  display: inline-block;
+  overflow: hidden;
+  vertical-align: bottom;
+  border-right: var(--right-shift) solid currentColor;
+  padding-right: var(--right-shift);
+
+  animation:
+    text-reveal 3s steps(2, end) var(--emergence-delay),
+    caret-blink 0.8s steps(1) var(--emergence-delay) infinite;
+}
+
+/* Reveals the text from left to right */
+@keyframes text-reveal {
+  from {
+    max-width: 0;
+  }
+  to {
+    max-width: 100%;
+  }
+}
+
+/* Cursor blink */
+@keyframes caret-blink {
+  0%, 100% {
+    border-color: transparent;
+  }
+  50% {
+    border-color: currentColor;
+  }
+}
