@@ -8,6 +8,10 @@
         html, body { height: 100%; overflow: hidden; }
         #content-frame { width: 100%; height: 100%; border: none; }
     </style>
+        <script type="module">
+        import { initRouter } from '/scripts/tech/handle_paths.js';
+        initRouter('content-frame');
+    </script>
 </head>
 <body>
     <iframe id="content-frame"></iframe>
