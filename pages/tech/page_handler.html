@@ -6,10 +6,13 @@
     <script src="/scripts/tech/handle_paths.js"></script>
 </head>
 <body>
-    <script type="module">
+    <iframe id="content-frame"></iframe>
+    <script>
         import { handle_paths } from '/scripts/tech/handle_paths.js';
-            
-        window.location.href = handle_paths.handle_path()
+        const iframe = document.getElementById("content-frame");
+        
+        iframe.src = handle_paths.handle_path();    
+
     </script>
 </body>
 </html>
