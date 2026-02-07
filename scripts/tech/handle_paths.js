@@ -1,124 +1,26 @@
-/**
- * Complete router with page-specific resource paths
- */
+let PATH_404_PAGE = "/pages/tech/404.html";
+let PAGES_LIST = [
+    "beauty",
+    "index-demo"
+]
 
-const CONFIG = {
-    notFoundPage: "/pages/tech/404.html",
-    pagesList: ["beauty", "index-demo"],
-    pagesDirectory: "/pages/"
-};
-
-function handle_paths(customPath = null) {
-    const path = customPath || window.location.pathname;
-    
-    if (path === "/") {
-        return "/index.html";
-    }
-    
-    const pageName = path.startsWith("/") ? path.slice(1) : path;
-    
-    if (CONFIG.pagesList.includes(pageName)) {
-        return CONFIG.pagesDirectory + pageName + ".html";
-    }
-    
-    return CONFIG.notFoundPage;
+function is_in_pages_list(path) {
+    return PAGES_LIST.includes(path.slice(1));
 }
 
-/**
- * Replace all /styles/, /scripts/libs/, /images/ with page-specific paths
- */
-function replaceIframeLinks(iframeId) {
-    const iframe = document.getElementById(iframeId);
-    
-    if (!iframe) {
-        console.error(`Iframe #${iframeId} not found`);
-        return;
+function handle_paths() {
+    let path = location.pathname;
+    var to_direct = PATH_404_PAGE;
+    if(path == "/") {
+        to_direct = "/index.html";
     }
-    
-    iframe.addEventListener('load', function() {
-        try {
-            const iframeDoc = iframe.contentDocument || iframe.contentWindow.document;
-            
-            if (!iframeDoc) {
-                console.error("Cannot access iframe (CORS)");
-                return;
-            }
-            
-            // Extract current page name from iframe src
-            // Example: /pages/beauty.html -> beauty
-            const srcUrl = iframe.src;
-            const pageMatch = srcUrl.match(/\/pages\/([^\/]+)\.html/);
-            
-            if (!pageMatch) {
-                console.log("Cannot determine page name from:", srcUrl);
-                return;
-            }
-            
-            const pageName = pageMatch[1];
-            const pageBasePath = `/pages/${pageName}/`;
-            
-            console.log(`📄 Processing page: ${pageName}`);
-            
-            // Get current HTML
-            const originalHtml = iframeDoc.documentElement.outerHTML;
-            let modifiedHtml = originalHtml;
-            
-            // Replace /styles/ -> /pages/{pageName}/styles/
-            modifiedHtml = modifiedHtml.replace(
-                /href=["']\/styles\//g, 
-                `href="${pageBasePath}styles/`
-            );
-            modifiedHtml = modifiedHtml.replace(
-                /src=["']\/styles\//g, 
-                `src="${pageBasePath}styles/`
-            );
-            
-            // Replace /scripts/libs/ -> /pages/{pageName}/scripts/libs/
-            modifiedHtml = modifiedHtml.replace(
-                /src=["']\/scripts\/libs\//g, 
-                `src="${pageBasePath}scripts/libs/`
-            );
-            
-            // Replace /images/ -> /pages/{pageName}/images/
-            modifiedHtml = modifiedHtml.replace(
-                /src=["']\/images\//g, 
-                `src="${pageBasePath}images/`
-            );
-            modifiedHtml = modifiedHtml.replace(
-                /href=["']\/images\//g, 
-                `href="${pageBasePath}images/`
-            );
-            
-            // Rewrite the document if changes were made
-            if (originalHtml !== modifiedHtml) {
-                console.log(`✓ Replacing paths with ${pageBasePath}...`);
-                iframeDoc.open();
-                iframeDoc.write(modifiedHtml);
-                iframeDoc.close();
-                console.log("✓ Done");
-            } else {
-                console.log("✓ No path replacements needed");
-            }
-            
-        } catch (error) {
-            console.error("Error processing iframe:", error);
-        }
-    });
+    if(is_in_pages_list(path)) {
+        to_direct = "/pages" + path + ".html";
+    }
+    console.log("Path: " + path);
+    console.log("Direct to: " + to_direct);
+    return to_direct;
 }
 
-function initRouter(iframeId) {
-    const iframe = document.getElementById(iframeId);
-    
-    if (!iframe) {
-        console.error(`Iframe #${iframeId} not found`);
-        return;
-    }
-    
-    iframe.src = handle_paths();
-    replaceIframeLinks(iframeId);
-    
-    console.log("✓ Router initialized");
-}
-
-export { handle_paths, replaceIframeLinks, initRouter };
+export { handle_paths };
 export default handle_paths;
