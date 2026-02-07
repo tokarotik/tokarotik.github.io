@@ -3,9 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <script src="/scripts/tech/handle_paths.js"></script>
+    <script type="module" src="/scripts/tech/handle_paths.js"></script>
 </head>
 <body>
-    <iframe src="pages/tech/page_handler.html" style="border:none; width:100%; height:100vh;"></iframe>
+    <iframe id="content-frame" style="width: 100%; height: 100%;"></iframe>
+    <script>
+        import handle_paths from './scripts/tech/handle_paths.js';
+        const iframe = document.getElementById("content-frame");
+        
+        iframe.src = handle_path();    
+
+    </script>
 </body>
 </html>

@@ -12,7 +12,7 @@ function is_in_pages_list(path)
 }
 
 
-function handle_path(){
+function handle_paths(){
     let path = location.pathname;
     var to_direct = PATH_404_PAGE;
 
