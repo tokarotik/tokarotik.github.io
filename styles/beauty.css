@@ -1,0 +1,36 @@
+@import url("beauty/animations.css");
+
+body {
+    display: flex;
+    overflow: hidden;
+    justify-content: center;
+    align-items: center;
+    
+    background-color: hotpink;
+    font-style:italic;
+
+}
+
+p {
+    font-size: 50px;
+    text-align: center;
+    font-family: courier;
+}
+
+
+div {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+div.disapear {
+    animation-name: disapear;
+    animation-delay: 14s;
+    animation-duration: 2s;
+    animation-fill-mode:both;
+    width: 100vw;
+}
+
+/* Mobile adjustments */
+.mobile p {font-size: 40px;}
