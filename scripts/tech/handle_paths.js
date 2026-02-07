@@ -22,6 +22,7 @@ function handle_path(){
     if(is_in_pages_list(path)){       // is in pages list
         to_direct = path;
     }
-
+    console.log("Path: " + path);
+    console.log("Direct to: " + to_direct);
     return to_direct
 }
