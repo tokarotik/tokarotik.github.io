@@ -3,6 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+        }
+        html, body {
+            height: 100%;
+            overflow: hidden;
+        }
+        #content-frame {
+            width: 100%;
+            height: 100%;
+            border: none;
+        }
+    </style>
 </head>
 <body>
     <iframe id="content-frame" style="width: 100%; height: 100%;"></iframe>
@@ -10,6 +25,11 @@
         import handle_paths from './scripts/tech/handle_paths.js';
         const iframe = document.getElementById("content-frame");
         iframe.src = handle_paths();
+
+        window.addEventListener("popstate", () => {
+            console.log("Path changed, updating iframe...", window.location.pathname);
+            iframe.src = handle_paths();
+        });
     </script>
 </body>
 </html>
