@@ -1,10 +1,10 @@
 import requests
-from flask import Flask, Response, abort
+from flask import Flask, Response, abort, redirect
 from enum import Enum
 from functools import lru_cache
 import logging
 
-app = Flask(__name__)
+app = Flask(__name__, static_folder='')
 
 # Configuration
 SITE_FOLDER = 'https://raw.githubusercontent.com/tokarotik/tokarotik.github.io/refs/heads/main'
@@ -89,10 +89,10 @@ def fetch_content(url):
         return None, 500
 
 
-@app.route("/")
-def index():
-    """Serve the index page"""
-    return pages('index.html')
+#@app.route("/")
+#def index():
+#    """Serve the index page"""
+#    return redirect("/index.html")
 
 
 @app.route("/favicon.ico")
@@ -189,6 +189,6 @@ def handle_504(e):
         mimetype=MimeTypes.HTML.value
     )
 
-
+#
 if __name__ == '__main__':
     app.run(debug=True, host='0.0.0.0', port=5000)

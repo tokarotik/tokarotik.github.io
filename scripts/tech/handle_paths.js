@@ -12,7 +12,7 @@ function handle_paths() {
     let path = location.pathname;
     var to_direct = PATH_404_PAGE;
     if(path == "/") {
-        to_direct = "/pages/index.html";
+        to_direct = "/index.html";
     }
     if(is_in_pages_list(path)) {
         to_direct = "/pages" + path + ".html";

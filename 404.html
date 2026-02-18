@@ -8,8 +8,8 @@
     <script type="module">
         import handle_paths from './scripts/tech/handle_paths.js';
         
-        const targetUrl = handle_paths();
-        
+        window.location = handle_paths();
+        /*
         // Fetch the HTML content
         const response = await fetch(targetUrl);
         const html = await response.text();
@@ -17,7 +17,7 @@
         // Replace entire document
         document.open();
         document.write(html);
-        document.close();
+        document.close();*/
     </script>
 </body>
 </html>
