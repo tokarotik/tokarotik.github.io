@@ -10,10 +10,18 @@ function is_in_pages_list(path) {
 
 function handle_paths() {
     let path = location.pathname;
+    if (path.startsWith("/404.html/")) {
+        path = path.slice(9)
+    }
+
     var to_direct = PATH_404_PAGE;
     if(path == "/") {
         to_direct = "/index.html";
     }
+    if (path == '/b') { path = "/beauty"; }
+
+    console.log(path);
+
     if(is_in_pages_list(path)) {
         to_direct = "/pages" + path + ".html";
     }
